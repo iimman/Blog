@@ -29,7 +29,8 @@ spring:
                 admin/blog_modify,
                 admin/admin_user_manage,
                 admin/admin_user_pwd_modify,
-                admin/resume_modify
+                admin/resume_modify,
+                photo
     #####################################
     content-type: text/html
     allow-request-override: true

@@ -25,7 +25,7 @@
                     <a class="nav-link" href="/post">博客</a>
                 </li>
                 <li class="nav-item <#if page_index?? && page_index == 3>active</#if>">
-                    <a class="nav-link" href="#">相册</a>
+                    <a class="nav-link" href="/photo">相册</a>
                 </li>
                 <li class="nav-item <#if page_index?? && page_index == 2>active</#if>">
                     <a class="nav-link" href="/resume">关于</a>
