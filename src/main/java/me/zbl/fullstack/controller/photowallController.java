@@ -12,7 +12,6 @@ public class photowallController {
 	
 	@RequestMapping(value = "/photo")
 	public String photoIndex(HttpServletRequest request, Model model){
-		System.out.println("aaaaaaaaaa");
 		return "photo";
 	}
 }
