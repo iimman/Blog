@@ -22,15 +22,16 @@ spring:
                 article,
                 posts,
                 resume,
+                photo,
                 admin/index,
                 admin/userlogin,
                 admin/blogadd,
                 admin/blog_manage,
                 admin/blog_modify,
                 admin/admin_user_manage,
+                admin/admin_photo_manage,
                 admin/admin_user_pwd_modify,
-                admin/resume_modify,
-                photo
+                admin/resume_modify
     #####################################
     content-type: text/html
     allow-request-override: true

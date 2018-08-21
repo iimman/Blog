@@ -69,6 +69,17 @@
                         </li>
                     </ul>
                 </li>
+                <li>
+                    <a href="#"><i class="fa fa-wrench fa-fw"></i> 相册管理<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="/admin/admin_photo_manage"> 照片管理</a>
+                        </li>
+                        <li>
+                            <a href="#"> 照片上传</a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </div>
         <!-- /.sidebar-collapse -->

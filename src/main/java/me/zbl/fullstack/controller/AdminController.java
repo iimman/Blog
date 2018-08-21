@@ -11,6 +11,7 @@ import me.zbl.fullstack.entity.dto.form.BlogModifyForm;
 import me.zbl.fullstack.entity.dto.form.UserLoginForm;
 import me.zbl.fullstack.entity.vo.ResumeModifyModel;
 import me.zbl.fullstack.service.api.IAdminBlogService;
+import me.zbl.fullstack.service.api.IAdminPhotoService;
 import me.zbl.fullstack.service.api.IAdminUserService;
 import me.zbl.fullstack.service.api.IAdminUserService.ModifyPwdResult;
 import me.zbl.fullstack.service.api.IResumeService;
@@ -40,6 +41,8 @@ public class AdminController extends BaseController {
   IAdminUserService mAdminUserService;
   @Autowired
   IResumeService mResumeService;
+  @Autowired
+  IAdminPhotoService mAdminPhotoService;
 
   /**
    * 后台首页
@@ -204,5 +207,22 @@ public class AdminController extends BaseController {
     ResumeModifyModel modifyModel = new ResumeModifyModel(article);
     addModelAtt(model, VIEW_ARTICLE, modifyModel);
     return "admin/resume_modify";
+  }
+  
+  /**
+   *  后台照片管理页面
+   */
+  @GetMapping("/admin_photo_manage")
+  public String AdminPhotoManage() {
+    return "admin/admin_photo_manage";
+  }
+  
+  /**
+   *  后台照片数据
+   */
+  @GetMapping("/admin_photo.j")
+  @ResponseBody
+  public Object AdminPhotoList() {
+    return mAdminPhotoService.getAdminPhotoJson();
   }
 }
