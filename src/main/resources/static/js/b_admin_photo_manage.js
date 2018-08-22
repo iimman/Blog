@@ -178,12 +178,11 @@ function deleteAdminUserInBulk() {
 }
 
 /**
- * 添加用户
+ * 添加用户aaaaaaaaaaaaaaaaaaaaaaaaa
  */
 function addAdminUser() {
-    c_location("/admin/blogadd");
+    c_location("/admin/photoadd");
 }
-
 /**
  * 修改用户
  */

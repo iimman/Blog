@@ -20,11 +20,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import static me.zbl.fullstack.consts.ViewConsts.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 后台控制器
@@ -224,5 +228,28 @@ public class AdminController extends BaseController {
   @ResponseBody
   public Object AdminPhotoList() {
     return mAdminPhotoService.getAdminPhotoJson();
+  }
+  
+  /**
+   *  后台照片上传页面
+   */
+  @GetMapping("/photoadd")
+  public String AdminPhotoAdd(HttpServletRequest request, Model model) {
+    return "admin/photoadd";
+  }
+  
+  @PostMapping("/inputPhoto")
+  @ResponseBody
+  public Map<String, Object> AdminInputPhoto(HttpServletRequest request, Model model ,@RequestParam("file") MultipartFile file) {
+	Map<String, Object> json = new HashMap<String, Object>();
+	System.out.println("bbbbbbbbbb");
+	
+	try {
+		 System.out.println(file.getOriginalFilename());
+		 json.put("success", "/static/img/upload/phono");
+	} catch (Exception e) {
+		 e.printStackTrace();
+	}
+    return json;
   }
 }

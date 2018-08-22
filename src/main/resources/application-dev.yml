@@ -26,6 +26,7 @@ spring:
                 admin/index,
                 admin/userlogin,
                 admin/blogadd,
+                admin/photoadd,
                 admin/blog_manage,
                 admin/blog_modify,
                 admin/admin_user_manage,
