@@ -50,7 +50,7 @@
         control.fileinput({
             language: 'zh', //设置语言
             uploadUrl: "/admin/inputPhoto", //上传的地址
-            allowedFileExtensions: ['jpg', 'gif', 'png','doc','docx','pdf','ppt','pptx','txt'],//接收的文件后缀
+            allowedFileExtensions: ['jpg', 'gif', 'png'],//接收的文件后缀
             maxFilesNum : 5,//上传最大的文件数量
             //uploadExtraData:{"id": 1, "fileName":'123.mp3'},
             uploadAsync: true, //默认异步上传
@@ -75,7 +75,7 @@
         }).on('filepreupload', function(event, data, previewId, index) {     //上传中
             var form = data.form, files = data.files, extra = data.extra,
             response = data.response, reader = data.reader;
-            console.log('文件正在上传');
+            console.log('文件正在上传···');
             
         }).on("fileuploaded", function (event, data, previewId, index) {    //一个文件上传成功
             console.log('文件上传成功！'+data.id);

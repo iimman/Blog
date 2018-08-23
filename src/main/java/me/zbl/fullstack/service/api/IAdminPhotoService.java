@@ -8,4 +8,6 @@ public interface IAdminPhotoService {
 
 	List<Photo> getAdminPhotoJson();
 
+	void adminAddPhoto(Photo photo);
+
 }

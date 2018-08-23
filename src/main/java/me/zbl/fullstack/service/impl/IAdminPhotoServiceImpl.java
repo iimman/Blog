@@ -23,4 +23,9 @@ public class IAdminPhotoServiceImpl implements IAdminPhotoService{
 		return list;
 	}
 
+	@Override
+	public void adminAddPhoto(Photo photo) {
+		photoMapper.insert(photo);
+	}
+
 }

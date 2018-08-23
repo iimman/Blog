@@ -2,6 +2,7 @@ package me.zbl.fullstack.controller;
 
 import me.zbl.fullstack.controller.base.BaseController;
 import me.zbl.fullstack.entity.Article;
+import me.zbl.fullstack.entity.Photo;
 import me.zbl.fullstack.entity.Resume;
 import me.zbl.fullstack.entity.dto.form.AdminUserPwdModifyForm;
 import me.zbl.fullstack.entity.dto.request.TableKeyModel;
@@ -15,6 +16,9 @@ import me.zbl.fullstack.service.api.IAdminPhotoService;
 import me.zbl.fullstack.service.api.IAdminUserService;
 import me.zbl.fullstack.service.api.IAdminUserService.ModifyPwdResult;
 import me.zbl.fullstack.service.api.IResumeService;
+import me.zbl.fullstack.utils.DateTimeHelper;
+
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,12 +27,18 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import static me.zbl.fullstack.consts.ViewConsts.*;
 
+import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * 后台控制器
@@ -47,6 +57,8 @@ public class AdminController extends BaseController {
   IResumeService mResumeService;
   @Autowired
   IAdminPhotoService mAdminPhotoService;
+  
+  String url = "D:\\projects\\FS-Blog-master\\src\\main\\resources\\static\\images";
 
   /**
    * 后台首页
@@ -240,13 +252,39 @@ public class AdminController extends BaseController {
   
   @PostMapping("/inputPhoto")
   @ResponseBody
-  public Map<String, Object> AdminInputPhoto(HttpServletRequest request, Model model ,@RequestParam("file") MultipartFile file) {
+  public Map<String, Object> AdminInputPhoto(HttpServletRequest request, HttpServletResponse response ,@RequestParam("file") MultipartFile file){
 	Map<String, Object> json = new HashMap<String, Object>();
-	System.out.println("bbbbbbbbbb");
-	
+	Photo photo = new Photo();
 	try {
-		 System.out.println(file.getOriginalFilename());
-		 json.put("success", "/static/img/upload/phono");
+		//输出文件后缀名称
+        DateFormat df = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+        //图片名称
+        String name = df.format(new Date());
+        //图片随机后缀
+        Random r = new Random();
+        for(int i = 0 ;i<3 ;i++){
+            name += r.nextInt(10);
+        }
+        //获取文件后缀名
+        String ext = FilenameUtils.getExtension(file.getOriginalFilename());
+        //保存图片       File位置 （全路径）   /upload/fileName.jpg
+        //String url = request.getSession().getServletContext().getRealPath("/static/images");
+        System.out.println(url);
+        //相对路径
+        String path = "/"+name + "." + ext;
+        photo.setAddress("images"+path);
+        File f = new File(url);
+        if(!f.exists()){
+            f.mkdirs();
+        }
+        //上传到指定文件夹
+        file.transferTo(new File(url+path));
+        //图片数据保存到数据图
+        Date nowTime = DateTimeHelper.getNowTime();
+        photo.setCreate(nowTime);
+        photo.setModified(nowTime);
+        mAdminPhotoService.adminAddPhoto(photo);
+		json.put("success", "/static/images"+path);
 	} catch (Exception e) {
 		 e.printStackTrace();
 	}
