@@ -290,4 +290,26 @@ public class AdminController extends BaseController {
 	}
     return json;
   }
+  
+  /**
+   *  后台照片修改
+   */
+  @PostMapping("/updatePhoto")
+  public String AdminUpdatePhoto(Photo photo) {
+	System.out.println(photo.toString());
+	mAdminPhotoService.adminUpdatePhoto(photo);
+    return "admin/admin_photo_manage";
+  }
+  
+  /**
+   * 后台照片批量删除
+   */
+  @DeleteMapping("/deletePhoto")
+  @ResponseBody
+  public Object AdminPhotoDelete(@RequestBody TableKeyModel model) {
+	System.out.println(model.toString());
+	mAdminPhotoService.AdminDeletePhoto(model);
+    return responseSimpleOK();
+  }
+
 }

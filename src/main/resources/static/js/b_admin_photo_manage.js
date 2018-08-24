@@ -50,6 +50,7 @@ var TableInit = function () {
                 field: 'id',
                 title: '序号',
                 align: 'center',
+                valign: 'middle',
                 sortable: true
             }, {
                 field: 'address',
@@ -57,30 +58,31 @@ var TableInit = function () {
                 align: 'center',
                 width: 10,
                 formatter: function(value,row,index){
-                	 console.log('value:'+value);
-                	 console.log('row:'+row);
-                	 console.log('index:'+index);
-                    return '<img  src="'+ '/' + value +'" class="img-rounded" >';
+                    return '<img  src="'+ '/' + value +'" class="img-rounded" width="100px" height="100px" >';
                 },
             }, {
                 field: 'title',
                 title: '标题',
+                valign: 'middle',
                 align: 'center'
             }, {
                 field: 'description',
                 title: '内容',
+                valign: 'middle',
                 align: 'center',
                 sortable: true
             }, {
                 field: 'create',
                 title: '创建时间',
                 align: 'center',
+                valign: 'middle',
                 formatter: formatDateTime,
                 sortable: true
             }, {
                 field: 'modified',
                 title: '修改时间',
                 align: 'center',
+                valign: 'middle',
                 formatter: formatDateTime,
                 sortable: true
             }]
@@ -171,11 +173,11 @@ function deleteAdminUserInBulk() {
     // 注意：必须加 contentType: 'application/json'，否则 controller 中无法将 json 直接转换成对象
     $.ajax({
         type: "DELETE",
-        url: "/admin/admin_use_delete.j",
+        url: "/admin/deletePhoto",
         contentType: 'application/json',
         data: JSON.stringify(dataObj),
         success: function (result) {
-            msg("完成删除，刚才的用户永远的离你而去了");
+            msg("完成删除，刚才的照片永远的离你而去了");
             flushTable();
         },
         error:function () {
@@ -202,7 +204,11 @@ function modifyAdminUser() {
     if (dataSel.length > 1) {
         msg("一个还不够你改的吗？选多啦");
     } else {
-        id = dataSel[0].id;
-        c_location("/admin/blogmodify/" + id);
+        //打开模态框
+        $("#recipient-name").val(dataSel[0].title);
+        $("#message-text").val(dataSel[0].description);
+        $("#photoId").val(dataSel[0].id);
+        $('#photoAddress').attr("src","/" + dataSel[0].address);
+        $('#exampleModal').modal('show');photoId;
     }
 }

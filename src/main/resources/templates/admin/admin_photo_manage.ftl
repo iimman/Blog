@@ -26,13 +26,6 @@
     <!-- Custom Fonts -->
     <link href="../vendor/admin/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
     <!-- Bootstrap 表格 -->
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
@@ -57,13 +50,13 @@
         <!-- 按钮组 -->
         <div id="toolbar" class="btn-group">
             <button id="id_btn_add" type="button" class="btn btn-default">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 上传
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;  上传
             </button>
-            <button id="id_btn_edit" type="button" class="btn btn-default">
-                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> 修改
+            <button id="id_btn_edit" type="button" class="btn btn-default">		
+                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>&nbsp;&nbsp; 修改
             </button>
             <button id="id_btn_delete" type="button" class="btn btn-default">
-                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> 删除
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>&nbsp;&nbsp; 删除
             </button>
         </div>
         <!-- s 表格 -->
@@ -74,6 +67,40 @@
     <#-- e 页面内容 -->
     </div>
 <#-- e 页面内容 -->
+
+<#-- e 模态框 -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="exampleModalLabel">Photo Message</h4>
+      </div>
+      <form id="updatePhotoFrom" action="/admin/updatePhoto" method="post">
+	      <div class="modal-body">
+	      	  <input id="photoId" type="hidden" name="id">
+	          <div class="form-group">
+	            <label for="recipient-name" class="control-label">照片:</label><br>
+	           	<img id="photoAddress" src="">
+	          </div>
+	          <div class="form-group">
+	            <label for="recipient-name" class="control-label">标题:</label>
+	            <input name="title" type="text" class="form-control" id="recipient-name">
+	          </div>
+	          <div class="form-group">
+	            <label for="message-text" class="control-label">内容:</label>
+	            <textarea name="description" class="form-control" id="message-text"></textarea>
+	          </div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        <button type="submit" class="btn btn-primary">Submit</button>
+	      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<#-- e 模态框 -->
 
 </div>
 

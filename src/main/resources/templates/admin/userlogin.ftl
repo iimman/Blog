@@ -21,7 +21,7 @@
 <body class="bg-dark">
 <div class="container">
     <div class="card card-login mx-auto mt-5">
-        <div class="card-header">Full-Stack</div>
+        <div class="card-header">用户登录</div>
         <div class="card-body">
             <form>
                 <div class="form-group">
@@ -39,7 +39,7 @@
                             <input class="form-check-input" type="checkbox" name="rememberme"> 记住密码 </label>
                     </div>
                 </div>
-                <a id="id_user_login_submit" class="btn btn-primary btn-block" href="javascript:void(0);">Login</a>
+                <a id="id_user_login_submit" class="btn btn-primary btn-block" href="javascript:void(0);">登录</a>
             </form>
             <div class="container text-center mt-3">
                 <div class="row">
