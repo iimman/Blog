@@ -1,5 +1,6 @@
 package me.zbl.fullstack.service.impl;
 
+import java.io.File;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,14 @@ public class IAdminPhotoServiceImpl implements IAdminPhotoService{
 	@Override
 	public void AdminDeletePhoto(TableKeyModel model) {
 	    for (Integer id : model.getIds()) {
-	    	photoMapper.deleteByPrimaryKey(id);
+	    	Photo photo = photoMapper.selectByPrimaryKey(id);
+	    	String url = "D:\\projects\\FS-Blog-master\\src\\main\\resources\\static\\" + photo.getAddress();
+	    	System.out.println(url);
+	    	File file = new File(url);
+	    	boolean flag = file.delete();
+	    	if(flag){
+		    	photoMapper.deleteByPrimaryKey(id);
+	    	}
 	      }
 	}
 }

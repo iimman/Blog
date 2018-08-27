@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -44,11 +45,13 @@ public class AdminLoginController extends BaseController {
 
   /**
    * 后台用户登录验证
+   * @throws Exception 
    */
   @PostMapping("/adminlogin/login.f")
-  public String fAdminLogin(@Valid UserLoginForm userLoginForm, BindingResult bindingResult, HttpServletRequest request) {
+  public String fAdminLogin(@Valid UserLoginForm userLoginForm, BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response){
     if (bindingResult.hasErrors()) {
       List<ObjectError> errors = bindingResult.getAllErrors();
+      System.out.println("errors:" + errors.get(0).getDefaultMessage());
       return "redirect:/adminlogin?msg=" + errors.get(0).getDefaultMessage();
     }
     AdminUser user = mAdminService.checkAdminUserExist(userLoginForm);

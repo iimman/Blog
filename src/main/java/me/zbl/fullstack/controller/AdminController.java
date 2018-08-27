@@ -307,7 +307,6 @@ public class AdminController extends BaseController {
   @DeleteMapping("/deletePhoto")
   @ResponseBody
   public Object AdminPhotoDelete(@RequestBody TableKeyModel model) {
-	System.out.println(model.toString());
 	mAdminPhotoService.AdminDeletePhoto(model);
     return responseSimpleOK();
   }

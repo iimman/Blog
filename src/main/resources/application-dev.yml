@@ -86,6 +86,7 @@ server:
           directory: /home/fullstack/app/fullstack
           pattern: combined
           enabled: true
+
   session:
     cookie:
       max-age: 1800

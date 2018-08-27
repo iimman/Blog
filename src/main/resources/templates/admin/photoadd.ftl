@@ -79,10 +79,8 @@
             
         }).on("fileuploaded", function (event, data, previewId, index) {    //一个文件上传成功
             console.log('文件上传成功！'+data.id);
-            alert(JSON.stringify(data.success));
         }).on('fileerror', function(event, data, msg) {  //一个文件上传失败
             console.log('文件上传失败！'+data.id);
-            alert(msg);
         })
 		}
 
