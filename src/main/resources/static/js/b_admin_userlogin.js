@@ -10,7 +10,7 @@ $(function () {
     var msg = getQueryString("msg");
     
     if(msg != null){
-    	alert(msg);
+    	msg("用户名或密码错误！");
     }   
 });
 
