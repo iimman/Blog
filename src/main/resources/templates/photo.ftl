@@ -7,8 +7,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href='http://fonts.googleapis.com/css?family=Karla' rel='stylesheet' type='text/css'>
 <link href="css/photowall/elastislide.css" rel="stylesheet" type="text/css" media="all" />
+<link href="vendor/layui/css/layui.css" rel="stylesheet" type="text/css" media="all" />
 <!-- Add fancyBox main JS and CSS files -->
 <script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/layui/layui.js"></script>
 <script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
 <link href="css/photowall/magnific-popup.css" rel="stylesheet" type="text/css">
 		<script>
@@ -25,6 +27,61 @@
 					mainClass: 'my-mfp-zoom-in'
 			});
 		});
+			
+			var currPage = ${pageInfo.pageNum};
+			var pageCount = ${pageInfo.total};
+			var pageSize = ${pageInfo.pageSize};
+			
+			
+			function getListData(currPage,pageSize){
+	              $.ajax({
+	                  type: 'POST',
+	                  url: "/photoJsonList", // ajax请求路径
+	                  data: {
+	                	  pageNum:currPage, //当前页数
+	                	  pageSize:pageSize
+	                  },
+	                  dataType:'json',
+	                  success: function(data){
+	                	  console.log(data);
+	                      var pageCount =data.total;
+	                      $("#phonewall1").empty();
+	                      $("#phonewall2").empty();
+	                      for (var i=0;i<data.list.length;i++){
+	                    	  //拼接内容
+	                    	  if(i % 2 == 0){
+	                    		  var v = '<div class="blog-img"><a href="single.html"><img src="'+ data.list[i].address +'" alt=""/><div class="blog-desc"><h5>hendrerit in vulputate velit esse molestie consequat</h5><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p><div class="comment"><span class="icon"><img src="images/b-heart.png" title="likes" alt=""/>15</span><div class="comment-desc"><a href="#">by adipiscing</a> / <a href="#">6comments</a> / <a href="#">Dec. 28, 2013</a></div><div class="clear"></div></div></div></a></div>'
+	                    		  $("#phonewall1").append(v);
+	                    	  }else{
+	                    		  var v = '<div class="blog-img"><a href="single.html"><img src="'+ data.list[i].address +'" alt=""/><div class="blog-desc"><h5>hendrerit in vulputate velit esse molestie consequat</h5><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p><div class="comment"><span class="icon"><img src="images/b-heart.png" title="likes" alt=""/>15</span><div class="comment-desc"><a href="#">by adipiscing</a> / <a href="#">6comments</a> / <a href="#">Dec. 28, 2013</a></div><div class="clear"></div></div></div></a></div>' 
+	                    		  $("#phonewall2").append(v);
+	                    	  }
+	                      }
+	                  }
+	              });
+	          };
+			
+			layui.use(['laypage', 'layer'], function(){
+				  var laypage = layui.laypage
+				  ,layer = layui.layer;
+			
+			  //完整功能
+			  laypage.render({
+			    elem: 'demo7'
+			    ,count: pageCount
+                ,first: '首页'
+                ,last: '尾页'
+			    ,layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']
+			    ,jump: function(obj,first){
+			      console.log(obj);
+			      currPage =obj.curr;  //这里是后台返回给前端的当前页数
+			      pageSize =obj.limit;
+                  if(!first){ //点击跳页触发函数自身，并传递当前页：obj.curr  ajax 再次请求
+                      getListData(currPage,pageSize);
+                  }
+			    }
+			  });
+			});
 		</script>
 		
 <#-- 自定义 样式 -->
@@ -64,60 +121,49 @@
 			<div class="blog-bg">
 			   <h4>"Lorem ipsum dolor sit consectetuer adipiscing elit, sed diam"</h4><span class="author">adipiscing</span><div class="clear"></div>
 			</div>
-			<#list pageInfo.list as photo> 
-			<#if photo_index % 2 == 0>
-			<div class="blog-img">
-				<a href="single.html">
-				<img src="${photo.address}" alt=""/>
-				<div class="blog-desc">
-					<h5>hendrerit in vulputate velit esse molestie consequat</h5>
-					<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-					<div class="comment">
-						<span class="icon"><img src="images/b-heart.png" title="likes" alt=""/>15</span>
-						<div class="comment-desc"><a href="#">by adipiscing</a> / <a href="#">6comments</a> / <a href="#">Dec. 28, 2013</a></div>
-						<div class="clear"></div>
-					</div>
-				</div>
-				</a>
+			<div id="phonewall1">
+				<#list pageInfo.list as photo> 
+					<#if photo_index % 2 == 0>
+						<div class="blog-img">
+							<a href="single.html">
+							<img src="${photo.address}" alt=""/>
+							<div class="blog-desc">
+								<h5>hendrerit in vulputate velit esse molestie consequat</h5>
+								<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+								<div class="comment">
+									<span class="icon"><img src="images/b-heart.png" title="likes" alt=""/>15</span>
+									<div class="comment-desc"><a href="#">by adipiscing</a> / <a href="#">6comments</a> / <a href="#">Dec. 28, 2013</a></div>
+									<div class="clear"></div>
+								</div>
+							</div>
+							</a>
+						</div>
+					</#if>
+				</#list>
 			</div>
-			</#if>
-			</#list> 
 	    </div>
-		<div class="blog-right">
+		<div class="blog-right" id="phonewall2">
 			<#list pageInfo.list as photo>
-			<#if photo_index % 2 == 1>
-			<div class="blog-img">
-				<a href="single.html">
-				<img src="${photo.address}" alt=""/>
-				<div class="blog-desc">
-					<h5>hendrerit in vulputate velit esse molestie consequat</h5>
-					<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-					<div class="comment">
-						<span class="icon"><img src="images/b-heart.png" title="likes" alt=""/>15</span>
-						<div class="comment-desc"><a href="#">by adipiscing</a> / <a href="#">6comments</a> / <a href="#">Dec. 28, 2013</a></div>
-						<div class="clear"></div>
-					</div>
-				</div>
-				</a>
-			</div> 
-			</#if>
+				<#if photo_index % 2 == 1>
+					<div class="blog-img">
+						<a href="single.html">
+						<img src="${photo.address}" alt=""/>
+						<div class="blog-desc">
+							<h5>hendrerit in vulputate velit esse molestie consequat</h5>
+							<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+							<div class="comment">
+								<span class="icon"><img src="images/b-heart.png" title="likes" alt=""/>15</span>
+								<div class="comment-desc"><a href="#">by adipiscing</a> / <a href="#">6comments</a> / <a href="#">Dec. 28, 2013</a></div>
+								<div class="clear"></div>
+							</div>
+						</div>
+						</a>
+					</div> 
+				</#if>
 			</#list>
 		</div>
 	   <div class="clear"></div>
-	   <ul class="dc_pagination dc_paginationA dc_paginationA06">
-	   		
-		    <li><a href="#" class="previous">Previous</a></li>
-		    <li><a href="#">1</a></li>
-		    <li><a href="#">2</a></li>
-		    <li><a href="#" class="current">3</a></li>
-		    <li><a href="#">4</a></li>
-		    <li><a href="#">5</a></li>
-		    <li><a href="#">...</a></li>
-		    <li><a href="#">19</a></li>
-		    <li><a href="#">20</a></li>
-		    <li><a href="#" class="next">Next</a></li>
-		    
-	   </ul>
+		<div id="demo7" align="center"></div>
 	 </div>
 	 <div class="project-sidebar">
 	 	<div class="project-list">
