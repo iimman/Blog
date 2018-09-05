@@ -11,29 +11,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.yaml.snakeyaml.constructor.BaseConstructor;
 
+import me.zbl.fullstack.entity.Comment;
 import me.zbl.fullstack.entity.Photo;
 import me.zbl.fullstack.entity.page.Page;
 import me.zbl.fullstack.entity.page.PageInfo;
-import me.zbl.fullstack.service.impl.PhotoWallServiceImpl;
+import me.zbl.fullstack.service.api.CommentService;
+import me.zbl.fullstack.service.api.PhotoWallService;
 
 
 @Controller
-public class photoWallController extends BaseConstructor{
+public class PhotoWallController extends BaseConstructor{
 
 	
 	@Autowired
-	private PhotoWallServiceImpl photoWallService;
+	private PhotoWallService photoWallService;
 	
+	@Autowired
+	private CommentService commentService;
+	
+	//跳转photo页面
 	@RequestMapping(value = "/photo")
 	public String photoIndex(HttpServletRequest request, Model model, Page page){
 		List<Photo> photoList = photoWallService.selectPhotoByPage(page);
 		
+		
 		PageInfo<Photo> pageInfo = new PageInfo<Photo>(photoList);
 		
 		model.addAttribute("pageInfo", pageInfo);
+		
 		return "photo";
 	}
 	
+	//分页查询photo
 	@RequestMapping(value = "/photoJsonList")
 	@ResponseBody
 	public PageInfo<Photo> photoJsonList(HttpServletRequest request, Page page){
@@ -42,6 +51,23 @@ public class photoWallController extends BaseConstructor{
 		PageInfo<Photo> pageInfo = new PageInfo<Photo>(photoList);
 		
 		return pageInfo;
+	}
+	
+	//根据id查询
+	@RequestMapping(value = "/single")
+	public String singlePhotoInfo(HttpServletRequest request, Model model, int id){
+		
+		Photo photo = photoWallService.selectPhotoById(id);
+		
+		List<Comment> commentList = commentService.getAllCommentById(id);
+		
+		System.out.println(commentList.toString());
+		
+		model.addAttribute("photo", photo);
+		
+		model.addAttribute("commentList", commentList);
+		
+		return "single";
 	}
 	
 }

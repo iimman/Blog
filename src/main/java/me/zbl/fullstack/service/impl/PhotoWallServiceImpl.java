@@ -23,8 +23,13 @@ public class PhotoWallServiceImpl implements PhotoWallService {
 	public List<Photo> selectPhotoByPage(Page page) {
 		PageHelper.startPage(page);
 		List<Photo> list = photoMapper.selectAll();
-		System.out.println(list.size());
 		return list;
+	}
+
+	@Override
+	public Photo selectPhotoById(int id) {
+		Photo photo = photoMapper.selectByPrimaryKey(id);
+		return photo;
 	}
 
 }

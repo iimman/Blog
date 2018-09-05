@@ -10,4 +10,6 @@ public interface PhotoWallService {
 	
 	public List<Photo> selectPhotoByPage(Page page);
 
+	public Photo selectPhotoById(int id);
+
 }

@@ -125,7 +125,7 @@
 				<#list pageInfo.list as photo> 
 					<#if photo_index % 2 == 0>
 						<div class="blog-img">
-							<a href="single.html">
+							<a href="/single?id=${photo.id}">
 							<img src="${photo.address}" alt=""/>
 							<div class="blog-desc">
 								<h5>hendrerit in vulputate velit esse molestie consequat</h5>
@@ -146,7 +146,7 @@
 			<#list pageInfo.list as photo>
 				<#if photo_index % 2 == 1>
 					<div class="blog-img">
-						<a href="single.html">
+						<a href="/single">
 						<img src="${photo.address}" alt=""/>
 						<div class="blog-desc">
 							<h5>hendrerit in vulputate velit esse molestie consequat</h5>

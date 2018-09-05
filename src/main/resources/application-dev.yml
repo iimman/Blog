@@ -23,6 +23,7 @@ spring:
                 posts,
                 resume,
                 photo,
+                single,
                 admin/index,
                 admin/userlogin,
                 admin/blogadd,
