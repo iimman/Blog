@@ -50,7 +50,7 @@ public class CommentController {
 		
 		CommentService.addComment(comment);
 		
-		return "/single?id="+photoId;
+		return "redirect:/single?id="+photoId;
 	}
 	
 	//添加一条回复
