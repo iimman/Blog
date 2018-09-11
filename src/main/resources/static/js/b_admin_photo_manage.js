@@ -209,6 +209,6 @@ function modifyAdminUser() {
         $("#message-text").val(dataSel[0].description);
         $("#photoId").val(dataSel[0].id);
         $('#photoAddress').attr("src","/" + dataSel[0].address);
-        $('#exampleModal').modal('show');photoId;
+        $('#exampleModal').modal('show');
     }
 }

@@ -27,4 +27,6 @@ public class Comment {
 	@Column(name = "comment_time")
 	private Date create;
 	
+	@Column(name = "comment_isreply")
+	private Integer isReply = 0;
 }

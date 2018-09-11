@@ -53,4 +53,11 @@ public interface IUserService {
    * @param request 用户请求
    */
   void destroySession(HttpServletRequest request);
+  
+  /**
+   * 根据用户id查询用户
+   * @param id
+   * @return user
+   */
+  User getUserById(int id);
 }

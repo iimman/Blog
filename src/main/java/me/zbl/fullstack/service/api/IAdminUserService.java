@@ -86,4 +86,13 @@ public interface IAdminUserService {
    * @return 修改结果
    */
   ModifyPwdResult modifyUserPwd(AdminUserPwdModifyForm form, HttpServletRequest request);
+
+  /**
+   * 根据id获取adminUser
+   * @param adminId
+   * @return
+   */
+  AdminUser getAdminUserById(int adminId);
+
+
 }

@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 import lombok.Data;
 
@@ -14,10 +15,13 @@ public class Reply {
 	@Column(name = "photo_id")
 	private Integer id;
 	
+	@Transient
 	private Comment comment;
 	
+	@Transient
 	private AdminUser admin;
 	
+	@Transient
 	private User user;
 	
 	@Column(name = "reply_content")

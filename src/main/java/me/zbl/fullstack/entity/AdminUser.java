@@ -3,7 +3,6 @@ package me.zbl.fullstack.entity;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.annotation.SessionScope;
 
 import java.util.Date;
 import javax.persistence.*;

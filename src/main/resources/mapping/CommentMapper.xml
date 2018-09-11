@@ -8,18 +8,17 @@
 		<result column="user_id" javaType="INTEGER" property="user.id"/>
 		<result column="comment_content" property="content"/>
 		<result column="comment_time" property="create"/>
+		<result column="comment_isreply" property="isReply"/>
 	</resultMap>
 
 	<insert id="addComment" parameterType="me.zbl.fullstack.entity.Comment">
-		INSERT INTO comment (photo_id, user_id,comment_content,comment_time) 
-		VALUES (#{photo.id,jdbcType=INTEGER},#{user.id,jdbcType=INTEGER},#{content,jdbcType=VARCHAR},#{create,jdbcType=TIMESTAMP})
+		INSERT INTO comment (photo_id, user_id,comment_content,comment_time,comment_isreply) 
+		VALUES (#{photo.id,jdbcType=INTEGER},#{user.id,jdbcType=INTEGER},#{content,jdbcType=VARCHAR},#{create,jdbcType=TIMESTAMP},#{isReply,jdbcType=INTEGER})
 	</insert>
-	
 	
 	<select id="getAllCommentById" resultMap="CommentMap" >
 		SELECT * FROM comment 
 		WHERE photo_id = #{id,jdbcType=INTEGER};
 	</select>
-	
 	
 </mapper>

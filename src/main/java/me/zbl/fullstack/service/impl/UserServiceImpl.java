@@ -57,4 +57,9 @@ public class UserServiceImpl implements IUserService {
     HttpSession requestSession = request.getSession(true);
     requestSession.removeAttribute(SessionConstants.SESSION_CURRENT_USER);
   }
+
+	@Override
+	public User getUserById(int id) {
+		return mMapper.selectByPrimaryKey(id);
+	}
 }

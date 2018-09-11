@@ -1,5 +1,6 @@
 package me.zbl.fullstack.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import org.yaml.snakeyaml.constructor.BaseConstructor;
 
 import me.zbl.fullstack.entity.Comment;
 import me.zbl.fullstack.entity.Photo;
+import me.zbl.fullstack.entity.Reply;
 import me.zbl.fullstack.entity.page.Page;
 import me.zbl.fullstack.entity.page.PageInfo;
 import me.zbl.fullstack.service.api.CommentService;
@@ -28,6 +30,9 @@ public class PhotoWallController extends BaseConstructor{
 	
 	@Autowired
 	private CommentService commentService;
+	
+	@Autowired
+	private CommentService commentSeriver;
 	
 	//跳转photo页面
 	@RequestMapping(value = "/photo")
@@ -57,11 +62,20 @@ public class PhotoWallController extends BaseConstructor{
 	@RequestMapping(value = "/single")
 	public String singlePhotoInfo(HttpServletRequest request, Model model, int id){
 		
+		List<Reply> replyList = new ArrayList<Reply>();
+		
 		Photo photo = photoWallService.selectPhotoById(id);
 		
 		List<Comment> commentList = commentService.getAllCommentById(id);
 		
-		System.out.println(commentList.toString());
+		for (Comment comment : commentList) {
+			Reply reply = commentSeriver.getReplyByCommentId(comment.getId());
+			if(null != reply){
+				replyList.add(reply);
+			}
+		}
+		
+		model.addAttribute("replyList", replyList);
 		
 		model.addAttribute("photo", photo);
 		

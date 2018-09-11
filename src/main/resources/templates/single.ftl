@@ -2,12 +2,15 @@
 <html>
 <head>
 <title>Single</title>
+
 <link href="css/photowall/style.css" rel="stylesheet" type="text/css" media="all" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href='http://fonts.googleapis.com/css?family=Karla' rel='stylesheet' type='text/css'>
 <!-- Add fancyBox main JS and CSS files -->
 <script src="vendor/jquery/jquery.min.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="vendor/admin/bootstrap/js/bootstrap.min.js"></script>
 <script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
 <link href="css/photowall/magnific-popup.css" rel="stylesheet" type="text/css">
 		<script>
@@ -28,6 +31,12 @@
 			function submitComment(){
 				$("#addcommentfrom").submit();
 			}
+			
+			function reply(userId,commentId){
+				$('#userId').val(userId);
+				$('#commentId').val(commentId);
+				$('#pModal').modal('show');
+			}
 		</script>
 		
 <#-- 自定义 样式 -->
@@ -36,6 +45,12 @@
 <#-- CSS -->
 <#include "public/front_css.ftl">
 </head>
+<style>
+.modal-open .fade{
+opacity: 1;
+background: rgba(0,0,0,0.2);
+}
+</style>	
 <body>
 <#include "public/nav.ftl">
   <div class="header">	
@@ -124,18 +139,33 @@
 		     	</div>
 		      </div>
 		      <div class="blog-comment">
-		      	<h5>6 Comments</h5><div class="clear"></div>
+		      	<h5>${commentList?size} Comments</h5><div class="clear"></div>
 		      	<#list commentList as comment>
 		        <ul class="list">
 			        <li>
 			            <div class="preview"><a href="#"><img src="images/c1.jpg" alt=""/></a></div>
 			            <div class="data">
-			                <div class="title">${comment.user.id }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">${comment.create?string("yyyy-MM-dd HH:mm:ss")}  </a></div>
+			                <div class="title"><a href="#">${comment.user.nickname }</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${comment.create?string("yyyy-MM-dd HH:mm:ss")}
+			                <#if Session ["session_current_admin_user"]?? && comment.isReply == 0>
+	      	  				<a href="javascript:void(0)" onclick="reply('${comment.user.id }','${comment.id }')" style="float:right;font-size:12px">回 复</a>
+	      	  				</#if>
+			                </div>
 			                <p>${comment.content }</p>
-			                <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
 			            </div>
 			            <div class="clear"></div>
 			        </li>
+			        <#list replyList as reply>
+			        	<#if reply.comment.id == comment.id>
+			        		<li class="middle">
+					            <div class="preview"><a href="#"><img src="images/c2.jpg" alt=""/></a></div>
+					            <div class="data-middle">
+					                <div class="title"><a href="#">${reply.admin.nickname }</a> 回复 ${reply.user.nickname }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;December 30, 2013</div>
+					                <p>${reply.description }</p>
+					            </div>
+					            <div class="clear"></div>
+					        </li>
+			        	</#if>
+			        </#list>
 	  			</ul>
 	  			</#list>
 	  		</div>
@@ -263,6 +293,37 @@
 	    </div>
 	</div>
 </div>
+
+<#-- e 模态框 -->
+<div class="modal fade" id="pModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="exampleModalLabel">回复信息</h4>
+      </div>
+      <form id="updatePhotoFrom" action="/addreply" method="post">
+	      <div class="modal-body">
+	      	  <input id="commentId" type="hidden" name="commentId">
+	      	  <#if Session ["session_current_admin_user"]??>
+	      	  <input id="adminId" type="hidden" name="adminId" value='${Session["session_current_admin_user"].id}'>
+	      	  </#if>
+	      	  <input id="userId" type="hidden" name="userId">
+	      	  <input id="photoId" type="hidden" name="photoId" value='${photo.id}'>
+	          <div class="form-group">
+	            <label for="message-text" class="control-label">回复内容:</label>
+	            <textarea name="replyContent" class="form-control" id="message-text"></textarea>
+	          </div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-danger" data-dismiss="modal">关 闭</button>
+	        <button type="submit" class="btn btn-success">回 复</button>
+	      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<#-- e 模态框 -->
 </body>	
 </html>    		
              		

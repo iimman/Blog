@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.zbl.fullstack.mapper.ReplyMapper">
+
+	<resultMap type="me.zbl.fullstack.entity.Reply" id="ReplyMap">
+		<result column="reply_id" javaType="INTEGER" property="id"/>
+		<result column="comment_id" javaType="INTEGER" property="comment.id"/>
+		<result column="admin_id" javaType="INTEGER" property="admin.id"/>
+		<result column="user_id" javaType="INTEGER" property="user.id"/>
+		<result column="reply_time" property="create"/>
+		<result column="reply_content" property="description"/>
+	</resultMap>
+
+	<insert id="addReply" parameterType="me.zbl.fullstack.entity.Reply">
+		INSERT INTO reply (comment_id, admin_id,user_id,reply_time,reply_content) 
+		VALUES (#{comment.id,jdbcType=INTEGER},#{admin.id,jdbcType=INTEGER},#{user.id,jdbcType=INTEGER},#{create,jdbcType=TIMESTAMP},#{description,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="getReplyByCommentId" resultMap="ReplyMap">
+		SELECT * FROM reply 
+		WHERE comment_id = #{id,jdbcType=INTEGER};
+	</select>
+</mapper>
