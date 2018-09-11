@@ -159,7 +159,7 @@ background: rgba(0,0,0,0.2);
 			        		<li class="middle">
 					            <div class="preview"><a href="#"><img src="images/c2.jpg" alt=""/></a></div>
 					            <div class="data-middle">
-					                <div class="title"><a href="#">${reply.admin.nickname }</a> 回复 ${reply.user.nickname }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;December 30, 2013</div>
+					                <div class="title"><a href="#">${reply.admin.nickname }</a> 回复 ${reply.user.nickname }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${reply.create?string("yyyy-MM-dd HH:mm:ss")}</div>
 					                <p>${reply.description }</p>
 					            </div>
 					            <div class="clear"></div>

@@ -66,7 +66,7 @@ public class CommentController {
 		reply.setCreate(DateTimeHelper.getNowTime());
 		reply.setDescription(replyContent);
 		CommentService.addReply(reply);
-		return "/single?id="+photoId;
+		return "redirect:/single?id="+photoId;
 	}
 
 }
