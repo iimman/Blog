@@ -21,6 +21,7 @@ public class GlobalExceptionHandler {
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   @ExceptionHandler(Exception.class)
   public String handleException(Exception e, Model model) {
+	LOGGER.info("handleException start!");
     model.addAttribute("msg", e.getLocalizedMessage());
     e.printStackTrace();
     return "redirect:error";

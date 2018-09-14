@@ -52,6 +52,7 @@ background: rgba(0,0,0,0.2);
 }
 </style>	
 <body>
+<#assign page_index = 3>
 <#include "public/nav.ftl">
   <div class="header">	
       <div class="wrap"> 

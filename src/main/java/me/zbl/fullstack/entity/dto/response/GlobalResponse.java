@@ -15,7 +15,7 @@ public class GlobalResponse {
   protected int resultCode;
   protected boolean hasError;
 
-  private GlobalResponse() {
+private GlobalResponse() {
 
   }
 

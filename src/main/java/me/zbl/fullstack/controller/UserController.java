@@ -35,7 +35,7 @@ public class UserController extends BaseController {
    * 表单提交
    */
   @PostMapping("/userlogin.f")
-  public String fFrontUserLogin(HttpServletRequest request, Model model, @Valid UserLoginForm loginForm, BindingResult bindingResult) throws Exception {
+  public String fFrontUserLogin(HttpServletRequest request, Model model, @Valid UserLoginForm loginForm, BindingResult bindingResult, String headerUrl) throws Exception {
     if (bindingResult.hasErrors()) {
       List<ObjectError> errors = bindingResult.getAllErrors();
       addModelAtt(model, VIEW_MSG, errors.get(0).getDefaultMessage());
@@ -44,7 +44,11 @@ public class UserController extends BaseController {
     User user = mUserService.loginAuthentication(loginForm);
     if (null != user) {
       mUserService.joinSession(request, user);
-      return "redirect:/";
+      if(headerUrl != null){
+    	  return "redirect:"+ headerUrl;
+      }else{
+    	  return "redirect:/";
+      }
     }
     addModelAtt(model, VIEW_MSG, "用户名或密码错误");
     return "userlogin";
@@ -79,5 +83,14 @@ public class UserController extends BaseController {
   public String cFrontUserSignout(HttpServletRequest request) {
     mUserService.destroySession(request);
     return "redirect:index";
+  }
+  
+  @PostMapping("/updateUser")
+  public String updateUser(HttpServletRequest request,User user){
+	  mUserService.updateUser(user);
+	  //同步session
+	  User newUser = mUserService.getUserById(user.getId());
+	  mUserService.joinSession(request, newUser);
+	  return "redirect:userprofile";
   }
 }

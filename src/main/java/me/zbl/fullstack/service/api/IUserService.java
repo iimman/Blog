@@ -60,4 +60,11 @@ public interface IUserService {
    * @return user
    */
   User getUserById(int id);
+  
+  /**
+   * 修改用户
+   * @param id
+   * @return user
+   */
+  void updateUser(User user);
 }

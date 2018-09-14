@@ -56,7 +56,7 @@ public class PostServiceImpl extends BaseViewTransableService<Article, PostView>
   @Override
   protected List<PostView> transEntityToView(List<Article> entityList) {
     List<PostView> postViewsList = new ArrayList<>();
-    Iterator it = entityList.iterator();
+    Iterator<Article> it = entityList.iterator();
     while (it.hasNext()) {
       Article article = (Article) it.next();
       PostView postView = new PostView(article);

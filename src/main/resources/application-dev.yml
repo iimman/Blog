@@ -24,6 +24,7 @@ spring:
                 resume,
                 photo,
                 single,
+                userprofile,
                 admin/index,
                 admin/userlogin,
                 admin/blogadd,

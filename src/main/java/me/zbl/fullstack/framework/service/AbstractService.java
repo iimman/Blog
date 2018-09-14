@@ -27,7 +27,8 @@ public abstract class AbstractService<T> implements IService<T> {
    */
   private Class<T> modelClass;
 
-  public AbstractService() {
+@SuppressWarnings("unchecked")
+public AbstractService() {
     ParameterizedType pt = (ParameterizedType) this.getClass().getGenericSuperclass();
     modelClass = (Class<T>) pt.getActualTypeArguments()[0];
   }

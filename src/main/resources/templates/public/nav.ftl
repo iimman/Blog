@@ -47,10 +47,10 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
-                       aria-haspopup="true" aria-expanded="false">${Session ["session_current_user"].username!'登录'}<span
+                       aria-haspopup="true" aria-expanded="false">${Session ["session_current_user"].nickname!'登录'}<span
                             class="caret"></span></a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="#">我的资料</a>
+                        <a class="dropdown-item" href="/userprofile">我的资料</a>
                         <a class="dropdown-item" href="#">消息</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/usersignout.c">注销登录</a>

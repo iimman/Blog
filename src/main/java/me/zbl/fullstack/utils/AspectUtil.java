@@ -22,7 +22,8 @@ public class AspectUtil {
    *
    * @return 注解
    */
-  public static Annotation getAnnotation(ProceedingJoinPoint joinPoint, Class clazz) {
+@SuppressWarnings("all")
+public static Annotation getAnnotation(ProceedingJoinPoint joinPoint, Class clazz) {
     try {
       // 拦截的对象
       Object object = joinPoint.getTarget();

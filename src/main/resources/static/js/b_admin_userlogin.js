@@ -11,7 +11,7 @@ $(function () {
     
     if(msg != null){
     	msg("用户名或密码错误！");
-    }   
+    }
 });
 
 

@@ -91,6 +91,7 @@
 <#include "public/front_css.ftl">
 </head>
 <body>
+<#assign page_index = 3>
 <#include "public/nav.ftl">
   <div class="header">	
        <div class="wrap"> 
@@ -268,6 +269,13 @@
 	    </div>
 	</div>
 </div>
+
+<#-- s-footer -->
+<#include "public/footer.ftl">
+<#-- e-footer -->
+
+<#-- JS -->
+<#include "public/front_js.ftl">
 </body>	
 </html>    		
              		

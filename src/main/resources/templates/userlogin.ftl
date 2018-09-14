@@ -35,6 +35,9 @@
         <div class="card-header">Full-Stack</div>
         <div class="card-body">
             <form id="id_form_login">
+            	<#if headerUrl??>
+            	<input type="hidden" name="headerUrl" value="${headerUrl }">
+            	</#if>
                 <div class="form-group">
                     <label for="id_username">用户名</label>
                     <input class="form-control" id="id_username" type="text" aria-describedby="emailHelp"

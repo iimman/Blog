@@ -206,9 +206,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
-import me.zbl.fullstack.controller.CommentController;
-
 /*
                        _oo0oo_
                       o8888888o

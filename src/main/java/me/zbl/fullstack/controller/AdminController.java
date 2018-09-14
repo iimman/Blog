@@ -268,8 +268,6 @@ public class AdminController extends BaseController {
         //获取文件后缀名
         String ext = FilenameUtils.getExtension(file.getOriginalFilename());
         //保存图片       File位置 （全路径）   /upload/fileName.jpg
-        //String url = request.getSession().getServletContext().getRealPath("/static/images");
-        System.out.println(url);
         //相对路径
         String path = "/"+name + "." + ext;
         photo.setAddress("images"+path);
